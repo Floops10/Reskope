@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader';
 import CTASection from '../components/CTASection';
 import { Reveal, RevealItem } from '../components/Reveal';
 import { useLang } from '../i18n';
-import moiPhoto from '../assets/moi.jpg';
+const moiPhoto = 'https://www.image2url.com/r2/default/images/1782253442600-884214d2-7945-4d3c-b79f-6b7586efd15b.png';
 
 const CONTENT = {
   fr: {
