@@ -4,7 +4,7 @@ import PageHeader from '../components/PageHeader';
 import Quiz from '../components/Quiz';
 import { Reveal, RevealItem } from '../components/Reveal';
 import { useLang } from '../i18n';
-import { CONTACT } from '../data/site';
+import { CONTACT, FORMSUBMIT_URL } from '../data/site';
 
 const CONTENT = {
   fr: {
@@ -26,9 +26,10 @@ const CONTENT = {
     email: 'Votre e-mail',
     message: 'Votre message',
     submit: 'Envoyer le message',
-    note: 'Le formulaire ouvre votre messagerie. Pour un envoi automatique, on branchera un service dédié (Formspree, etc.).',
-    subject: 'Contact Reskope',
-    subjectFallback: 'site web',
+    sending: 'Envoi en cours…',
+    successTitle: 'Message envoyé !',
+    successText: 'Je vous réponds sous 24 h.',
+    errorText: 'Une erreur est survenue. Réessayez ou écrivez-moi directement.',
   },
   en: {
     metaTitle: "Contact · let's talk about your tools",
@@ -49,9 +50,10 @@ const CONTENT = {
     email: 'Your email',
     message: 'Your message',
     submit: 'Send the message',
-    note: "The form opens your email app. For automatic sending, we'll plug in a dedicated service (Formspree, etc.).",
-    subject: 'Reskope contact',
-    subjectFallback: 'website',
+    sending: 'Sending…',
+    successTitle: 'Message sent!',
+    successText: "I'll get back to you within 24 h.",
+    errorText: 'Something went wrong. Please try again or write to me directly.',
   },
 };
 
@@ -59,20 +61,39 @@ export default function Contact() {
   const { lang } = useLang();
   const c = CONTENT[lang];
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const update = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`${c.subject} · ${form.name || c.subjectFallback}`);
-    const body = encodeURIComponent(`${form.message}\n\n${form.name}\n${form.email}`);
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+    setStatus('sending');
+    try {
+      const res = await fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `Contact Reskope · ${form.name}`,
+          _captcha: 'false',
+        }),
+      });
+      if (res.ok) {
+        setStatus('sent');
+        setForm({ name: '', email: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
     <Page title={c.metaTitle} description={c.metaDesc}>
       <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} />
 
-      {/* Le formulaire d'abord : visible dès l'arrivée */}
       <section className="section section--tight">
         <div className="container contact-page">
           <Reveal className="contact-page__aside">
@@ -90,30 +111,38 @@ export default function Contact() {
           </Reveal>
 
           <Reveal className="contact-form-wrap">
-            <RevealItem as="form" className="contact-form" onSubmit={onSubmit}>
-              <label>
-                <span>{c.name}</span>
-                <input type="text" name="name" value={form.name} onChange={update} required autoComplete="name" />
-              </label>
-              <label>
-                <span>{c.email}</span>
-                <input type="email" name="email" value={form.email} onChange={update} required autoComplete="email" />
-              </label>
-              <label>
-                <span>{c.message}</span>
-                <textarea name="message" rows="5" value={form.message} onChange={update} required />
-              </label>
-              <button type="submit" className="btn btn--primary">
-                {c.submit}
-                <span className="btn__arrow" aria-hidden="true">→</span>
-              </button>
-              <p className="contact-form__note">{c.note}</p>
-            </RevealItem>
+            {status === 'sent' ? (
+              <RevealItem className="contact-form contact-form--success">
+                <p className="contact-form__success-title">{c.successTitle}</p>
+                <p>{c.successText}</p>
+              </RevealItem>
+            ) : (
+              <RevealItem as="form" className="contact-form" onSubmit={onSubmit}>
+                <label>
+                  <span>{c.name}</span>
+                  <input type="text" name="name" value={form.name} onChange={update} required autoComplete="name" />
+                </label>
+                <label>
+                  <span>{c.email}</span>
+                  <input type="email" name="email" value={form.email} onChange={update} required autoComplete="email" />
+                </label>
+                <label>
+                  <span>{c.message}</span>
+                  <textarea name="message" rows="5" value={form.message} onChange={update} required />
+                </label>
+                {status === 'error' && (
+                  <p className="contact-form__error">{c.errorText}</p>
+                )}
+                <button type="submit" className="btn btn--primary" disabled={status === 'sending'}>
+                  {status === 'sending' ? c.sending : c.submit}
+                  <span className="btn__arrow" aria-hidden="true">→</span>
+                </button>
+              </RevealItem>
+            )}
           </Reveal>
         </div>
       </section>
 
-      {/* Le questionnaire ensuite : guidé, message pré-rempli en 1 clic */}
       <section className="section section--tint" id="qcm">
         <div className="container">
           <Reveal className="section__head">

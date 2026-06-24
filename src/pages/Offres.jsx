@@ -11,12 +11,12 @@ import { OFFERS, FAQ } from '../data/site';
 
 const CONTENT = {
   fr: {
-    metaTitle: 'Offres & tarifs · prix affichés, devis sur-mesure',
+    metaTitle: 'Offres · audit, mise en œuvre, suivi',
     metaDesc:
-      "Trois façons de travailler ensemble : l'Audit, l'Audit + mise en œuvre, et le sur-mesure. Des tarifs « à partir de » affichés sans détour.",
-    eyebrow: 'Offres & tarifs',
-    title: 'Trois façons de travailler ensemble.',
-    lead: "Des tarifs « à partir de », affichés sans détour. Le devis final dépend de la taille de votre équipe et du périmètre, jamais d'une surprise.",
+      "Quatre façons de travailler ensemble : l'Audit, l'Audit + mise en œuvre, le développement sur-mesure, et le suivi mensuel. Devis après échange.",
+    eyebrow: 'Offres',
+    title: 'Quatre façons de travailler ensemble.',
+    lead: "Chaque mission est différente. On définit ensemble le périmètre, puis je vous propose une estimation claire avant de démarrer.",
     action: 'Pas sûr ? Trouvez votre offre',
     badge: 'Le plus choisi',
     swipe: 'Glissez pour comparer →',
@@ -32,12 +32,12 @@ const CONTENT = {
     faqLead: "Une question qui n'est pas là ? Écrivez-moi, je réponds vite et franchement.",
   },
   en: {
-    metaTitle: 'Pricing · prices shown, custom quotes',
+    metaTitle: 'Offers · audit, delivery, retainer',
     metaDesc:
-      'Three ways to work together: the Audit, Audit + delivery, and custom. From-prices shown without detours.',
-    eyebrow: 'Offers & pricing',
-    title: 'Three ways to work together.',
-    lead: 'From-prices, shown without detours. The final quote depends on your team size and scope, never a surprise.',
+      'Four ways to work together: the Audit, Audit + delivery, custom development, and monthly retainer. Quote after a conversation.',
+    eyebrow: 'Offers',
+    title: 'Four ways to work together.',
+    lead: 'Every engagement is different. We define the scope together, then I give you a clear estimate before we start.',
     action: 'Not sure? Find your offer',
     badge: 'Most chosen',
     swipe: 'Swipe to compare →',
@@ -116,8 +116,6 @@ export default function Offres() {
                 {o.featured && <span className="offer__badge">{c.badge}</span>}
                 <h3>{o.name}</h3>
                 <p className="offer__tagline">{o.tagline}</p>
-                <p className="offer__price">{o.price}</p>
-                <p className="offer__price-note">{o.priceNote}</p>
                 <ul className="offer__features">
                   {o.features.map((f) => (
                     <li key={f}>{f}</li>

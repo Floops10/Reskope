@@ -4,8 +4,10 @@
    ============================================================ */
 
 export const CONTACT = {
-  email: 'hello@reskope.fr', // à remplacer par ton e-mail
+  email: 'hello@reskope.fr',
 };
+
+export const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/wedday.thomyflorian@gmail.com';
 
 /* Statistiques EXTERNES, toujours sourcées (le ⓘ affiche la source). */
 export const STATS = {
@@ -158,82 +160,113 @@ export const JALONS = {
   ],
 };
 
-/* Prix en placeholder, à ajuster avec tes vrais montants. */
 export const OFFERS = {
   fr: [
     {
-      id: 'audit', name: 'L’Audit', price: 'À partir de 1 500 €',
-      priceNote: 'forfait, selon la taille de l’équipe', tagline: 'Comprendre où part le temps.',
+      id: ‘audit’,
+      name: ‘Audit numérique’,
+      tagline: ‘Comprendre avant d’agir.’,
       features: [
-        'Entretiens individuels, salarié par salarié',
-        'Cartographie de vos outils et process',
-        'Diagnostic priorisé par impact',
-        'Un bilan clair et actionnable',
-        'Restitution et recommandations',
+        ‘Entretiens individuels avec vos équipes’,
+        ‘Cartographie complète de vos outils et usages’,
+        ‘Identification des doublons, frictions et coûts cachés’,
+        ‘Bilan priorisé par impact, que vous gardez’,
+        ‘Recommandations actionnables : vous décidez de la suite’,
       ],
-      cta: 'Demander un audit', featured: false,
+      cta: ‘Demander un audit’, featured: false,
     },
     {
-      id: 'audit-plus', name: 'Audit + Mise en œuvre', price: 'À partir de 3 500 €',
-      priceNote: 'audit inclus, puis réalisation', tagline: 'On identifie, puis on règle.',
+      id: ‘audit-plus’,
+      name: ‘Audit + Mise en œuvre’,
+      tagline: ‘On identifie, je règle.’,
       features: [
-        'Tout l’Audit, inclus',
-        'Mise en place des automatisations',
-        'Optimisation et intégration de vos outils',
-        'Refonte d’outils existants si besoin',
-        'Accompagnement et autonomisation des équipes',
+        ‘Tout l’audit numérique, inclus’,
+        ‘Réalisation : intégrations, automatisations, site web’,
+        ‘Développement d’outils sur-mesure si besoin’,
+        ‘Facturable à la journée (estimation fournie en amont)’,
+        ‘Vous choisissez : je fais tout, ou vous reprenez la main’,
       ],
-      cta: 'Auditer et mettre en œuvre', featured: true,
+      cta: ‘En discuter’, featured: true,
     },
     {
-      id: 'surmesure', name: 'Sur-mesure', price: 'Sur devis',
-      priceNote: 'demandes particulières', tagline: 'Quand il faut construire du neuf.',
+      id: ‘developpement’,
+      name: ‘Développement & automatisation’,
+      tagline: ‘Votre besoin est cadré, je construis.’,
       features: [
-        'Développement de logiciels spécifiques',
-        'Refonte complète d’un outil métier',
-        'Applications web sur-mesure',
-        'Cadrage et cahier des charges (AMOA)',
-        'Devis détaillé après échange',
+        ‘Site web ou application métier sur-mesure’,
+        ‘Automatisations (n8n, BI, intelligence artificielle)’,
+        ‘Intégrations entre vos outils existants’,
+        ‘Pas besoin de passer par l’audit si le besoin est clair’,
+        ‘Estimation de jours fournie avant démarrage’,
       ],
-      cta: 'Décrire mon besoin', featured: false,
+      cta: ‘Décrire mon besoin’, featured: false,
+    },
+    {
+      id: ‘suivi’,
+      name: ‘Suivi mensuel’,
+      tagline: ‘Je reste dans la boucle.’,
+      features: [
+        ‘Contrôles réguliers de vos outils et automatisations’,
+        ‘Petites modifications à la demande’,
+        ‘Un interlocuteur disponible quand vous avez besoin’,
+        ‘Réponse rapide, sans ticket, sans agence’,
+        ‘Engagement mensuel, résiliable à tout moment’,
+      ],
+      cta: ‘Parlons du suivi’, featured: false,
     },
   ],
   en: [
     {
-      id: 'audit', name: 'The Audit', price: 'From €1,500',
-      priceNote: 'flat fee, depending on team size', tagline: 'Understand where the time goes.',
+      id: ‘audit’,
+      name: ‘Digital audit’,
+      tagline: ‘Understand before you act.’,
       features: [
-        'One-on-one interviews, employee by employee',
-        'A map of your tools and processes',
-        'Diagnosis prioritized by impact',
-        'A clear, actionable report',
-        'Debrief and recommendations',
+        ‘One-on-one interviews with your teams’,
+        ‘Full map of your tools and how they are used’,
+        ‘Identifying overlaps, friction points and hidden costs’,
+        ‘Prioritized report by impact — yours to keep’,
+        ‘Actionable recommendations: you decide what happens next’,
       ],
-      cta: 'Request an audit', featured: false,
+      cta: ‘Request an audit’, featured: false,
     },
     {
-      id: 'audit-plus', name: 'Audit + Delivery', price: 'From €3,500',
-      priceNote: 'audit included, then delivery', tagline: 'We identify, then we fix.',
+      id: ‘audit-plus’,
+      name: ‘Audit + Delivery’,
+      tagline: ‘We identify, I fix.’,
       features: [
-        'Everything in the Audit, included',
-        'Setting up automations',
-        'Optimizing and integrating your tools',
-        'Rebuilding existing tools if needed',
-        'Support and team autonomy',
+        ‘Full digital audit, included’,
+        ‘Delivery: integrations, automations, website’,
+        ‘Custom tool development if needed’,
+        ‘Day-rate billing (estimate provided upfront)’,
+        ‘You choose: I do it all, or you take over’,
       ],
-      cta: 'Audit and deliver', featured: true,
+      cta: ‘Let\’s talk’, featured: true,
     },
     {
-      id: 'surmesure', name: 'Custom', price: 'On quote',
-      priceNote: 'specific requests', tagline: 'When you need to build something new.',
+      id: ‘developpement’,
+      name: ‘Development & automation’,
+      tagline: ‘Your need is clear, I build it.’,
       features: [
-        'Development of specific software',
-        'Full rebuild of a business tool',
-        'Custom web applications',
-        'Scoping and specifications (business analysis)',
-        'Detailed quote after a conversation',
+        ‘Custom website or business application’,
+        ‘Automations (n8n, BI, artificial intelligence)’,
+        ‘Integrations between your existing tools’,
+        ‘No audit needed if the brief is already clear’,
+        ‘Day estimate provided before start’,
       ],
-      cta: 'Describe my need', featured: false,
+      cta: ‘Describe my need’, featured: false,
+    },
+    {
+      id: ‘suivi’,
+      name: ‘Monthly retainer’,
+      tagline: ‘I stay in the loop.’,
+      features: [
+        ‘Regular checks on your tools and automations’,
+        ‘Small changes on request’,
+        ‘One point of contact whenever you need it’,
+        ‘Fast response — no tickets, no agency’,
+        ‘Monthly commitment, cancel any time’,
+      ],
+      cta: ‘Talk about ongoing support’, featured: false,
     },
   ],
 };
