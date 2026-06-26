@@ -1,0 +1,42 @@
+RESKOPE NETWORK — police « réseau »
+====================================
+
+Fichiers
+--------
+• Reskope-Network.ttf  → la police (à installer / importer)
+• apercu.html          → aperçu de toutes les lettres (ouvrir dans un navigateur)
+• build_font.py        → le code source qui génère la police (pour la régénérer)
+
+Cette police reprend EXACTEMENT le tracé réseau du site Reskope
+(les lettres des grands titres : src/lib/netfont.js) : monoline,
+nœuds aux sommets, capitales. Les minuscules sont des PETITES
+CAPITALES (mêmes lettres, plus petites) : « Reskope » = R + ESKOPE.
+
+Contenu : A–Z, a–z, é è ê ë à â ç î ï ô û ù É È À Ç Ô Œ œ,
+0–9, et . , : ; ! ? ' " - – — _ ( ) [ ] { } / \ & @ # % + = * < > € $ £
+(124 glyphes au total)
+
+
+Installer sur Mac
+-----------------
+1. Double-cliquer sur Reskope-Network.ttf
+2. Cliquer « Installer la police »
+→ Elle apparaît ensuite dans Word, Pages, Keynote, Illustrator, etc.
+  sous le nom « Reskope Network ».
+
+
+Utiliser dans Canva
+-------------------
+Canva permet d'importer ses propres polices avec un compte Canva Pro :
+1. Aller dans « Marque » (Brand Kit) → « Polices » → « Importer une police »
+2. Choisir Reskope-Network.ttf
+→ Disponible dans tous tes designs Canva.
+(Sans Canva Pro, l'import de police n'est pas possible : il faut alors
+ écrire le texte dans un autre logiciel et l'importer en image/SVG.)
+
+
+Régénérer / modifier la police
+------------------------------
+Le dessin de chaque lettre est défini dans build_font.py (liste de nœuds).
+Pour reconstruire après modification :
+    python3 build_font.py
