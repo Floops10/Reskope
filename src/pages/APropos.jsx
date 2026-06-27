@@ -1,7 +1,12 @@
+import { useRef } from 'react';
 import Page from '../components/Page';
 import PageHeader from '../components/PageHeader';
 import CTASection from '../components/CTASection';
+import RiseText from '../components/RiseText';
+import Stagger from '../components/Stagger';
 import { Reveal, RevealItem } from '../components/Reveal';
+import { gsap, useGSAP } from '../lib/gsap';
+import { instant } from '../lib/scrub';
 import { useLang } from '../i18n';
 const moiPhoto = 'https://www.image2url.com/r2/default/images/1782253442600-884214d2-7945-4d3c-b79f-6b7586efd15b.png';
 
@@ -95,18 +100,70 @@ const CONTENT = {
 export default function APropos() {
   const { lang } = useLang();
   const c = CONTENT[lang];
+  const introRef = useRef(null);
+
+  /* Photo : révélation (volet qui se lève) + parallaxe ; guillemets de la
+     marque qui dérivent au scroll quand on raconte le projet. */
+  useGSAP(
+    () => {
+      if (instant()) return;
+      const root = introRef.current;
+      if (!root) return;
+      const mask = root.querySelector('.about__photo-mask');
+      const img = root.querySelector('.about__photo-mask img');
+      if (mask) {
+        gsap.fromTo(
+          mask,
+          { clipPath: 'inset(100% 0% 0% 0% round 16px)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 16px)',
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: mask, start: 'top 82%' },
+          }
+        );
+      }
+      if (img) {
+        gsap.fromTo(
+          img,
+          { yPercent: -9 },
+          {
+            yPercent: 9,
+            ease: 'none',
+            scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: true },
+          }
+        );
+      }
+      gsap.fromTo(
+        root.querySelectorAll('.about__quote'),
+        { y: 70, opacity: 0 },
+        {
+          y: -40,
+          opacity: 0.5,
+          ease: 'none',
+          stagger: 0.12,
+          scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
+        }
+      );
+    },
+    { scope: introRef }
+  );
 
   return (
     <Page title={c.metaTitle} description={c.metaDesc}>
       <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} />
 
       <section className="section">
-        <div className="container about__intro">
+        <div className="container about__intro" ref={introRef}>
+          <span className="about__quote about__quote--open" aria-hidden="true">«</span>
+          <span className="about__quote about__quote--close" aria-hidden="true">»</span>
           <div className="about__photo">
-            <img src={moiPhoto} alt={c.photoAlt} />
+            <div className="about__photo-mask">
+              <img src={moiPhoto} alt={c.photoAlt} />
+            </div>
           </div>
           <Reveal className="about__text">
-            <RevealItem as="h2" className="h2">{c.hello}</RevealItem>
+            <RiseText as="h2" className="h2 about__hello" text={c.hello} />
             <RevealItem as="p" className="lead">{c.bio[0]}</RevealItem>
             <RevealItem as="p">{c.bio[1]}</RevealItem>
             <RevealItem as="p">{c.bio[2]}</RevealItem>
@@ -121,15 +178,15 @@ export default function APropos() {
             <RevealItem as="p" className="eyebrow eyebrow--index">{c.principesEyebrow}</RevealItem>
             <RevealItem as="h2" className="h2" id="principes-title">{c.principesTitle}</RevealItem>
           </Reveal>
-          <Reveal className="manifesto" amount={0.1}>
+          <Stagger className="manifesto" stagger={0.14} y={70}>
             {c.principes.map((m) => (
-              <RevealItem className="manifesto__item" key={m.num}>
+              <div className="manifesto__item" key={m.num}>
                 <span className="manifesto__num">{m.num}</span>
                 <h3 className="manifesto__title">{m.title}</h3>
                 <p className="manifesto__text">{m.text}</p>
-              </RevealItem>
+              </div>
             ))}
-          </Reveal>
+          </Stagger>
         </div>
       </section>
 
@@ -141,9 +198,9 @@ export default function APropos() {
             <RevealItem as="h2" className="h2" id="size-title">{c.sizeTitle}</RevealItem>
             <RevealItem as="p" className="lead">{c.sizeLead}</RevealItem>
           </Reveal>
-          <Reveal className="size-tiers" amount={0.1}>
+          <Stagger className="size-tiers" stagger={0.14} y={70}>
             {c.tiers.map((t) => (
-              <RevealItem className="size-tier" key={t.range}>
+              <div className="size-tier" key={t.range}>
                 <div className="size-tier__head">
                   <span className="size-tier__range">{t.range}</span>
                   <span className="size-tier__label">{t.label}</span>
@@ -155,9 +212,9 @@ export default function APropos() {
                     <li key={w}>{w}</li>
                   ))}
                 </ul>
-              </RevealItem>
+              </div>
             ))}
-          </Reveal>
+          </Stagger>
         </div>
       </section>
 
@@ -168,11 +225,11 @@ export default function APropos() {
             <RevealItem as="p" className="eyebrow eyebrow--index">{c.skillsEyebrow}</RevealItem>
             <RevealItem as="h2" className="h2">{c.skillsTitle}</RevealItem>
           </Reveal>
-          <Reveal className="skills" amount={0.2}>
+          <Stagger className="skills" sel=".skill" stagger={0.06} y={28}>
             {c.skills.map((s) => (
-              <RevealItem as="span" className="skill" key={s}>{s}</RevealItem>
+              <span className="skill" key={s}>{s}</span>
             ))}
-          </Reveal>
+          </Stagger>
         </div>
       </section>
 

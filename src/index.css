@@ -1636,10 +1636,42 @@ html.eco-theme .enav__tab.is-active {
 
 /* ---------- À propos ---------- */
 .about__intro {
+  position: relative;
   display: grid;
   grid-template-columns: clamp(230px, 30vw, 320px) 1fr;
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
+}
+.about__photo,
+.about__text {
+  position: relative;
+  z-index: 1;
+}
+.about__hello {
+  font-size: clamp(2rem, 4.6vw, 3.3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 0.4rem;
+}
+/* Guillemets de la marque qui dérivent au scroll (récit du projet) */
+.about__quote {
+  position: absolute;
+  z-index: 2;
+  font-size: clamp(5rem, 13vw, 12rem);
+  line-height: 0.7;
+  font-weight: 600;
+  color: var(--indigo);
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.about__quote--open {
+  top: -3.2rem;
+  left: -0.8rem;
+}
+.about__quote--close {
+  bottom: -4rem;
+  right: -0.4rem;
 }
 .about__avatar {
   width: 160px;
@@ -3593,14 +3625,19 @@ html.eco-theme .scrollnet {
   position: relative;
   width: 100%;
 }
-.about__photo img {
-  display: block;
-  width: 100%;
+.about__photo-mask {
+  position: relative;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: center top;
+  overflow: hidden;
   border-radius: var(--radius);
   background: var(--cream-shade);
+}
+.about__photo-mask img {
+  display: block;
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  object-position: center top;
 }
 /* petit cadre réseau décoratif derrière la photo */
 .about__photo::before {
