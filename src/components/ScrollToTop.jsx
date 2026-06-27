@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ScrollTrigger } from '../lib/gsap';
+import { scrollToTop } from '../lib/smoothScroll';
 
 export default function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    scrollToTop(true);
     const r = requestAnimationFrame(() => ScrollTrigger.refresh());
     const t = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {

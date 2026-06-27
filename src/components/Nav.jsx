@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { LogoMark } from './Logo';
+import { lockScroll } from '../lib/smoothScroll';
 import { useT, useLang, LangToggle } from '../i18n';
 import { CONTACT } from '../data/site';
 
@@ -29,10 +30,12 @@ export default function Nav() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    lockScroll(open);
     const onKey = (e) => e.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
+      lockScroll(false);
       window.removeEventListener('keydown', onKey);
     };
   }, [open]);

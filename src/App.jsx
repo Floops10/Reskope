@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { ScrollTrigger } from './lib/gsap';
+import { initSmoothScroll, destroySmoothScroll } from './lib/smoothScroll';
 import ScrollToTop from './components/ScrollToTop';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -16,6 +17,7 @@ import Contact from './pages/Contact';
 
 export default function App() {
   useEffect(() => {
+    initSmoothScroll();
     const refresh = () => ScrollTrigger.refresh();
     if (document.fonts?.ready) document.fonts.ready.then(refresh);
     window.addEventListener('load', refresh);
@@ -23,6 +25,7 @@ export default function App() {
     return () => {
       window.removeEventListener('load', refresh);
       clearTimeout(t);
+      destroySmoothScroll();
     };
   }, []);
 
