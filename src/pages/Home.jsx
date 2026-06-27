@@ -5,6 +5,7 @@ import { HeroLogo } from '../components/Logo';
 import NetField from '../components/NetField';
 import CTASection from '../components/CTASection';
 import Marked from '../components/Marked';
+import RiseText from '../components/RiseText';
 import { Reveal, RevealItem } from '../components/Reveal';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { useLang } from '../i18n';
@@ -89,7 +90,7 @@ function HeroPinned({ c }) {
         <div className="hero__scroller">
           <Reveal className="hero__step" onMount>
             <RevealItem as="p" className="eyebrow">{c.eyebrow}</RevealItem>
-            <RevealItem as="h1" className="display">{c.heroTitle}</RevealItem>
+            <RiseText as="h1" className="display" text={c.heroTitle} />
           </Reveal>
 
           <Reveal className="hero__step" amount={0.6}>
@@ -132,7 +133,7 @@ function HeroCompact({ c }) {
             <HeroLogo mode="mount" />
           </RevealItem>
           <RevealItem as="p" className="eyebrow">{c.eyebrow}</RevealItem>
-          <RevealItem as="h1" className="display">{c.heroTitle}</RevealItem>
+          <RiseText as="h1" className="display" text={c.heroTitle} />
           <RevealItem as="p" className="lead hero__sub">
             <Marked text={c.sub} word={c.markSub} />
           </RevealItem>
@@ -165,7 +166,7 @@ export default function Home() {
           <div className="container">
             <Reveal className="section__head">
               <RevealItem as="p" className="eyebrow eyebrow--index">{c.startEyebrow}</RevealItem>
-              <RevealItem as="h2" className="h2" id="start-title">{c.startTitle}</RevealItem>
+              <RiseText as="h2" className="h2" id="start-title" text={c.startTitle} />
             </Reveal>
             <Reveal amount={0.1}>
               <RevealItem>
@@ -182,7 +183,7 @@ export default function Home() {
           <Reveal className="eco-teaser__inner">
             <div className="eco-teaser__text">
               <RevealItem as="p" className="eyebrow eyebrow--eco">{c.ecoEyebrow}</RevealItem>
-              <RevealItem as="h2" className="h2 eco-teaser__title" id="eco-teaser-title">{c.ecoTitle}</RevealItem>
+              <RiseText as="h2" className="h2 eco-teaser__title" id="eco-teaser-title" text={c.ecoTitle} />
               <RevealItem as="p" className="eco-teaser__lead">{c.ecoLead}</RevealItem>
               <RevealItem>
                 <Link to="/numerique-responsable" className="btn btn--eco">

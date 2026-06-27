@@ -1782,6 +1782,36 @@ html.eco-theme .enav__tab.is-active {
   opacity: 1;
 }
 
+/* ---------- Révélation mot à mot (RiseText) ---------- */
+.risetext {
+  /* le conteneur reste visible (sécurité) ; ce sont les mots qui s'animent */
+}
+.rise-w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.6em);
+  filter: blur(6px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+  transition-delay: calc(var(--i, 0) * var(--stagger, 55ms));
+  will-change: transform, opacity, filter;
+}
+.risetext.is-in .rise-w {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-w {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
