@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Page from '../components/Page';
 import PageHeader from '../components/PageHeader';
 import NetField from '../components/NetField';
+import Stagger from '../components/Stagger';
 import { Reveal, RevealItem } from '../components/Reveal';
 import { useLang } from '../i18n';
 import { CONTACT } from '../data/site';
@@ -103,16 +104,16 @@ export default function Ecologie() {
             <RevealItem as="h2" className="h2 eco__h2" id="eco-facts-title">{c.factsTitle}</RevealItem>
           </Reveal>
 
-          <Reveal className="eco-facts" amount={0.15}>
+          <Stagger className="eco-facts" stagger={0.12} y={56}>
             {c.facts.map((f) => (
-              <RevealItem className="eco-fact" key={f.label}>
+              <div className="eco-fact" key={f.label}>
                 <span className="eco-fact__stat">{f.stat}</span>
                 <span className="eco-fact__label">{f.label}</span>
                 <p className="eco-fact__detail">{f.detail}</p>
                 <span className="eco-fact__source">{f.source}</span>
-              </RevealItem>
+              </div>
             ))}
-          </Reveal>
+          </Stagger>
         </div>
       </section>
 
@@ -127,15 +128,15 @@ export default function Ecologie() {
             <RevealItem as="h2" className="h2 eco__h2" id="eco-savings-title">{c.savingsTitle}</RevealItem>
           </Reveal>
 
-          <Reveal className="eco-savings" amount={0.12}>
+          <Stagger className="eco-savings" stagger={0.13} y={60}>
             {c.savings.map((s, i) => (
-              <RevealItem className="eco-saving" key={s.title}>
+              <div className="eco-saving" key={s.title}>
                 <span className="eco-saving__num">{`0${i + 1}`}</span>
                 <h3 className="eco-saving__title">{s.title}</h3>
                 <p className="eco-saving__text">{s.text}</p>
-              </RevealItem>
+              </div>
             ))}
-          </Reveal>
+          </Stagger>
         </div>
       </section>
 
