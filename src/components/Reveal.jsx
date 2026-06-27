@@ -29,14 +29,15 @@ export function Reveal({
       return;
     }
 
-    gsap.set(items, { opacity: 0, y: 28 });
+    gsap.set(items, { opacity: 0, y: 40, filter: 'blur(6px)' });
     const play = () =>
       gsap.to(items, {
         opacity: 1,
         y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.09,
+        filter: 'blur(0px)',
+        duration: 0.95,
+        ease: 'power4.out',
+        stagger: 0.085,
       });
 
     if (onMount) {
